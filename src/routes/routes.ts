@@ -16,6 +16,8 @@ router.use((req, res, next) => {
 
 router.get('/', catController.getCats);
 
+router.post('/vote', catController.postVote);
+
 export default router;
 
 

@@ -13,6 +13,15 @@ export class Cat {
     }
 
     static fetchAll(){
-        return db.execute('SELECT * FROM cats');
+        return db.execute('SELECT * FROM cats ORDER BY votes DESC');
+    }
+
+    static vote(catId: String){
+        return db.execute('SELECT * FROM cats WHERE id=?', [catId])
+            .then(([rows, fieldData]) => {
+                const winnerCat = JSON.parse(JSON.stringify(rows))[0];
+
+                return db.execute('UPDATE cats SET votes=? WHERE id=?', [++winnerCat.votes, catId])
+            })
     }
 }

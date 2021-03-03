@@ -11,3 +11,15 @@ export const getCats = (req: Request, res: Response, next: NextFunction) => {
         })
         .catch(e => next(e))
 }
+
+export const postVote = (req: Request, res: Response, next: NextFunction) => {
+    const catId: String = req.body.cat_id;
+
+    Cat.vote(catId)
+        .then(([rows, fieldData]) => {
+            res.status(200).json({
+                message: "OK: Updated successfully."
+            })
+        })
+        .catch(e => next(e))
+}
