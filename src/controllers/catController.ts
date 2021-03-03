@@ -21,5 +21,7 @@ export const postVote = (req: Request, res: Response, next: NextFunction) => {
                 message: "OK: Updated successfully."
             })
         })
-        .catch(e => next(e))
+        .catch(e => {
+            return res.status(400).send(e.message);
+        })
 }
